@@ -14,7 +14,7 @@ public class Car {
     @OneToOne
     @JoinColumn(name = "engine_id")
     private Engine engine;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     private Set<Driver> drivers = new HashSet<>();
 
     public static Car of(Engine engine) {
