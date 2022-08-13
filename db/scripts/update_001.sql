@@ -17,3 +17,19 @@ create table if not exists history_owner (
     driver_id int not null references driver(id),
     car_id int not null references car(id)
 );
+
+create table if not exists advt (
+	id serial primary key,
+	descrp varchar(255),
+	brand varchar(255),
+	body varchar(255),
+	photo bytea,
+	saled boolean,
+	user_id int not null references users(id)
+);
+
+create table if not exists users (
+	id serial primary key,
+	name varchar(255) unique,
+	password varchar(255) not null
+);
