@@ -1,6 +1,8 @@
 package ru.job4j.model;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -14,6 +16,7 @@ public class Advt {
     private String body;
     private byte[] photo;
     private boolean saled;
+    private LocalDateTime created;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
@@ -24,6 +27,7 @@ public class Advt {
         advt.brand = brand;
         advt.body = body;
         advt.photo = photo;
+        advt.created = LocalDateTime.now();
         return advt;
     }
 
@@ -81,6 +85,14 @@ public class Advt {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
     }
 
     @Override
