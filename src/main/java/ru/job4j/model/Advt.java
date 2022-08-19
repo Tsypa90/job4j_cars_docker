@@ -2,7 +2,7 @@ package ru.job4j.model;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Date;
+import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
@@ -12,22 +12,28 @@ public class Advt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String descrp;
-    private String brand;
-    private String body;
     private byte[] photo;
     private boolean saled;
+    private int price;
+    private int run;
     private LocalDateTime created;
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "car_id")
+    private Car car;
 
-    public static Advt of(String descrp, String brand, String body, byte[] photo) {
+    public static Advt of(String descrp, byte[] photo, boolean saled, User user, Car car, int price, int run) {
         Advt advt = new Advt();
-        advt.descrp = descrp;
-        advt.brand = brand;
-        advt.body = body;
-        advt.photo = photo;
         advt.created = LocalDateTime.now();
+        advt.descrp = descrp;
+        advt.photo = photo;
+        advt.saled = saled;
+        advt.user = user;
+        advt.car = car;
+        advt.price = price;
+        advt.run = run;
         return advt;
     }
 
@@ -47,22 +53,6 @@ public class Advt {
         this.descrp = descrp;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getBody() {
-        return body;
-    }
-
-    public void setBody(String body) {
-        this.body = body;
-    }
-
     public byte[] getPhoto() {
         return photo;
     }
@@ -79,6 +69,14 @@ public class Advt {
         this.saled = saled;
     }
 
+    public LocalDateTime getCreated() {
+        return created;
+    }
+
+    public void setCreated(LocalDateTime created) {
+        this.created = created;
+    }
+
     public User getUser() {
         return user;
     }
@@ -87,12 +85,28 @@ public class Advt {
         this.user = user;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
+    public Car getCar() {
+        return car;
     }
 
-    public void setCreated(LocalDateTime created) {
-        this.created = created;
+    public void setCar(Car car) {
+        this.car = car;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
+    }
+
+    public int getRun() {
+        return run;
+    }
+
+    public void setRun(int run) {
+        this.run = run;
     }
 
     @Override

@@ -1,25 +1,23 @@
 package ru.job4j.model;
 
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Objects;
-import java.util.Set;
 
 @Entity
-@Table(name = "car")
+@Table(name = "cars")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    @OneToOne
-    @JoinColumn(name = "engine_id")
-    private Engine engine;
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    private Set<Driver> drivers = new HashSet<>();
+    private String brand;
+    private String body;
+    private int year;
 
-    public static Car of(Engine engine) {
+    public static Car of(String brand, String body, int year) {
         Car car = new Car();
-        car.engine = engine;
+        car.brand = brand;
+        car.body = body;
+        car.year = year;
         return car;
     }
 
@@ -31,20 +29,28 @@ public class Car {
         this.id = id;
     }
 
-    public Engine getEngine() {
-        return engine;
+    public String getBrand() {
+        return brand;
     }
 
-    public void setEngine(Engine engine) {
-        this.engine = engine;
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 
-    public Set<Driver> getDrivers() {
-        return drivers;
+    public String getBody() {
+        return body;
     }
 
-    public void setDrivers(Set<Driver> drivers) {
-        this.drivers = drivers;
+    public void setBody(String body) {
+        this.body = body;
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
     }
 
     @Override

@@ -10,11 +10,13 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String name;
+    private String login;
     private String password;
 
-    public static User of(String name, String password) {
+    public static User of(String name, String login, String password) {
         User user = new User();
         user.name = name;
+        user.login = login;
         user.password = password;
         return user;
     }
@@ -41,6 +43,14 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     @Override
