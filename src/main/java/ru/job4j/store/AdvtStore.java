@@ -26,7 +26,6 @@ public class AdvtStore implements Store {
     public List<Advt> findAll() {
         return tx(session -> {
             var rsl = session.createQuery("from Advt a "
-//                    + "join fetch a.user "
                     + "join fetch a.car ").getResultList();
             return rsl;
         }, sessionFactory);
@@ -34,7 +33,6 @@ public class AdvtStore implements Store {
 
     public Advt findById(int id) {
         return (Advt) tx(session -> session.createQuery("from Advt a "
-//                + "join fetch a.user "
                 + "join fetch a.car "
                 + "where a.id = :aId ").setParameter("aId", id).uniqueResult(), sessionFactory);
     }
