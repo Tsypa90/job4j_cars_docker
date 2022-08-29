@@ -1,13 +1,11 @@
 package ru.job4j.store;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import org.hibernate.SessionFactory;
 
+@RequiredArgsConstructor
 public class CarStore implements Store {
-    private SessionFactory sessionFactory;
-
-    public CarStore(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
-
+    @NonNull
+    private final SessionFactory sessionFactory;
 }

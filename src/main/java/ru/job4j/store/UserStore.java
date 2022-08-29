@@ -1,5 +1,7 @@
 package ru.job4j.store;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -9,12 +11,10 @@ import java.util.Optional;
 
 @Repository
 @ThreadSafe
+@RequiredArgsConstructor
 public class UserStore implements Store {
+    @NonNull
     private SessionFactory sessionFactory;
-
-    public UserStore(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
 
     public Optional<User> save(User user) {
         return tx(session -> {

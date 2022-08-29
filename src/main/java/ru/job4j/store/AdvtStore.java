@@ -1,5 +1,7 @@
 package ru.job4j.store;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.hibernate.SessionFactory;
 import org.springframework.stereotype.Repository;
@@ -9,12 +11,10 @@ import java.util.List;
 
 @Repository
 @ThreadSafe
+@RequiredArgsConstructor
 public class AdvtStore implements Store {
-    private SessionFactory sessionFactory;
-
-    public AdvtStore(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    @NonNull
+    private final SessionFactory sessionFactory;
 
     public Advt save(Advt advt) {
         return tx(session -> {

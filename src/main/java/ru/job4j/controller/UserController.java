@@ -1,5 +1,7 @@
 package ru.job4j.controller;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +18,10 @@ import java.util.Optional;
 
 @Controller
 @ThreadSafe
+@RequiredArgsConstructor
 public class UserController {
-    private UserService service;
-
-    public UserController(UserService service) {
-        this.service = service;
-    }
+    @NonNull
+    private final UserService service;
 
     @GetMapping("/registration")
     public String registration(Model model, HttpSession session,

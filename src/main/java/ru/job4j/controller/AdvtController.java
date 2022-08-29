@@ -1,5 +1,7 @@
 package ru.job4j.controller;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
@@ -21,12 +23,10 @@ import java.util.List;
 
 @Controller
 @ThreadSafe
+@RequiredArgsConstructor
 public class AdvtController {
-    private AdvtService service;
-
-    public AdvtController(AdvtService advtService) {
-        this.service = advtService;
-    }
+    @NonNull
+    private final AdvtService service;
 
     private static void addUserToSession(Model model, HttpSession session) {
         User user = (User) session.getAttribute("user");

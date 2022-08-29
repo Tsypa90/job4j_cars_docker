@@ -1,5 +1,7 @@
 package ru.job4j.service;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.User;
@@ -9,12 +11,10 @@ import java.util.Optional;
 
 @Service
 @ThreadSafe
+@RequiredArgsConstructor
 public class UserService {
-    private UserStore store;
-
-    public UserService(UserStore store) {
-        this.store = store;
-    }
+    @NonNull
+    private final UserStore store;
 
     public Optional<User> save(User user) {
         return store.save(user);

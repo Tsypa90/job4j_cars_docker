@@ -1,5 +1,7 @@
 package ru.job4j.service;
 
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.model.Advt;
@@ -10,12 +12,10 @@ import java.util.List;
 
 @Service
 @ThreadSafe
+@RequiredArgsConstructor
 public class AdvtService {
-    private AdvtStore store;
-
-    public AdvtService(AdvtStore store) {
-        this.store = store;
-    }
+    @NonNull
+    private final AdvtStore store;
 
     public Advt save(Advt advt) {
         advt.setCreated(LocalDateTime.now());
