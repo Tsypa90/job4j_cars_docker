@@ -1,0 +1,22 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=cars
+      - PGDATA=/var/lib/postgresql/data
+    volumes:
+      - ./db/cars/data/pgdata:/var/lib/postgresql/data
+    restart: always
+  job4j_cars:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: job4j_cars
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db

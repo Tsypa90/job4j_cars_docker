@@ -13,6 +13,9 @@
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <java.version>17</java.version>
+    <docker.db.url.jdbc>${SPRING_DATASOURCE_URL}</docker.db.url.jdbc>
+    <docker.db.username.jdbc>${SPRING_DATASOURCE_USERNAME}</docker.db.username.jdbc>
+    <docker.db.password.jdbc>${SPRING_DATASOURCE_PASSWORD}</docker.db.password.jdbc>
   </properties>
 
   <profiles>
@@ -34,6 +37,15 @@
         <db.url>jdbc:postgresql://127.0.0.1:5432/cars</db.url>
         <db.username>postgres</db.username>
         <db.password>password</db.password>
+        <db.driver>org.postgresql.Driver</db.driver>
+      </properties>
+    </profile>
+    <profile>
+      <id>docker</id>
+      <properties>
+        <db.url>${docker.db.url.jdbc}</db.url>
+        <db.username>${docker.db.username.jdbc}</db.username>
+        <db.password>${docker.db.password.jdbc}</db.password>
         <db.driver>org.postgresql.Driver</db.driver>
       </properties>
     </profile>
@@ -104,6 +116,27 @@
 
   <build>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <finalName>cars</finalName>
+              <transformers>
+                <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                  <mainClass>ru.job4j.Main</mainClass>
+                </transformer>
+              </transformers>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
       <groupId>org.liquibase</groupId>
       <artifactId>liquibase-maven-plugin</artifactId>
